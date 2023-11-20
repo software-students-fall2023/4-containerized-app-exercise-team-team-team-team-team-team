@@ -37,7 +37,7 @@ jobs:
           pipenv install requests
           pipenv install chardet
           pipenv install hume
-          pipenv install hume.models.config
+          pipenv install "hume[stream]"
           pipenv install gitcommitlogger
       - name: Log pull request opened
         if: github.event_name == 'pull_request' && github.event.action == 'opened'

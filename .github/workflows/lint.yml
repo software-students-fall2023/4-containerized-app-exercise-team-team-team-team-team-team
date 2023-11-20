@@ -16,7 +16,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install chardet
           python -m pip install hume
-          python -m pip install hume.models.config
+          python -m pip install "hume[stream]" 
           python -m pip install pipenv
           pipenv sync --dev --python $(which python)
           pipenv shell --fancy --python $(which python)
