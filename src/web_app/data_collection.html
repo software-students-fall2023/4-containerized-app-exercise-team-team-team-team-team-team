@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home screen</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen+Mono">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxanium">
+    <style>
+        /* ... existing styles ... */
+
+        #cameraStream {
+            width: 100%; /* Adjust as needed */
+            max-width: 400px; /* Adjust as needed */
+            border-radius: 10px;
+        }
+
+        .start-button {
+            position: absolute;
+            font-family: 'Oxygen Mono', monospace; /* monospace as fallback */
+            top: 19em; 
+            right: 25em;
+            background-color: #FFF9EF;
+            border: none;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: black;
+            cursor: pointer;
+            stroke-width: 2.5px;
+            stroke: #000;
+            box-shadow: 10px 6px 10px 0px rgba(0, 0, 0, 0.25) inset;
+        }
+        .title {
+            font-family: 'Oxanium', Arial, sans-serif; /* arial as fallback */
+            background-color: #FFF9EF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-weight: 400; 
+            font-size: 100px; 
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: 29.514px;
+            color: #000; 
+            text-align: center; 
+            padding-top: 30px;
+        }
+
+        .body {
+            font-family: 'Oxygen Mono', monospace; /* monospace as fallback */
+            background-color: #FFF9EF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-weight: 400; 
+            font-size: 40px; 
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: 8px; 
+            color: #000; 
+            text-align: center; 
+        }
+        .title, .body {
+            min-height: 100px;
+        }
+
+        .computer-container {
+            position: relative;
+            width: 1270px;
+            height: 700px;
+            background-color: #FFF9EF;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 25px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="computer-container">
+        <div class="body">Take a photo of yourself... 
+            and we’ll give you a surprise!</div>
+        <video id="cameraStream" autoplay></video>
+        <button class="start-button" onclick="takePhoto()">Take Photo</button>
+        <canvas id="photoCanvas" style="display: none;"></canvas>
+    </div>
+
+    <script>
+        const video = document.getElementById('cameraStream');
+        const canvas = document.getElementById('photoCanvas');
+        const context = canvas.getContext('2d');
+
+        // Access the device camera and stream to video element
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function (error) {
+                    console.log("Something went wrong with the webcam stream!");
+                });
+        }
+
+        // Capture a photo from the video stream
+        function takePhoto() {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // The image can be found in canvas.toDataURL()
+            // You can process the image further here
+        }
+    </script>
+</body>
+</html>
