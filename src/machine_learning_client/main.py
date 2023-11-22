@@ -34,6 +34,14 @@ async def main():
         fle = open(FILE_PATH_OUTPUT,'w',encoding=encodingOutput)
         sys.stdout = fle
         emotions = (result.get("face").get("predictions")[0]).get("emotions")
+        sum = 0
+        other = "Other,"
+        otherNum=0
         for i in emotions:
-            print(i,"\n")
+            if(i.get("score")<.07):otherNum+=i.get("score")
+            else:
+                print(i.get("name"),end=",")
+                print(i.get("score"))
+        print(other,end="")
+        print(otherNum)
 asyncio.run(main())
