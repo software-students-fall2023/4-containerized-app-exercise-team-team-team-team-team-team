@@ -1,7 +1,10 @@
+"""Web App Stuff!"""
+import logging
+import os
 from dotenv import load_dotenv
 import pymongo
-import os
-import logging
+
+
 
 logging.basicConfig(level=logging.INFO)
 load_dotenv()
@@ -10,6 +13,7 @@ print("hello world")
 log = logging.getLogger()
 
 def connectToDB(connectionString):
+    """Connects to MongoDB database"""
     try:
         client = pymongo.MongoClient(connectionString)
         db = client.MLData
@@ -25,4 +29,3 @@ def connectToDB(connectionString):
 
 log = logging.getLogger()
 collection, dataBase = connectToDB(DATABASE_CONNECTION_STRING)
-

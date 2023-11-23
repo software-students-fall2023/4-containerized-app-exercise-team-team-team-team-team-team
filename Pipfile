@@ -10,6 +10,8 @@ requests = "*"
 chardet = "*"
 hume = {extras = ["stream"], version = "*"}
 pytest = "*"
+pymongo = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

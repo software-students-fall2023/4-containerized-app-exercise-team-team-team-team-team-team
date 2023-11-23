@@ -18,6 +18,8 @@ jobs:
           python -m pip install hume
           python -m pip install "hume[stream]" 
           python -m pip install pipenv
+          python -m pip install pymongo
+          python -m pip install python-dotenv
           pipenv sync --dev --python $(which python)
           pipenv shell --fancy --python $(which python)
       - name: Lint with pylint
