@@ -39,10 +39,10 @@ def view_dashboard():
 def upload_image():
     try:
         image_data = request.json['image'] # extracting base64 image data
-        #image_binary = base64.b64decode(image_data.split(',')[1]) # if size is an issue we can convert it from base64 to binary 
+        image_binary = base64.b64decode(image_data.split(',')[1]) # if size is an issue we can convert it from base64 to binary 
 
         # storing in mongodb
-        result = collection.insert_one({"image": image_data}) #if we use image_binary, we would replace image_data here with it instead
+        result = collection.insert_one({"image": image_binary})
         return jsonify({"message": "Image uploaded successfully", "id": str(result.inserted_id)}) # inserted_id contains unique ID assigned by MongoDB to image
     except Exception as e:
         logging.error(f"Error uploading image: {e}")

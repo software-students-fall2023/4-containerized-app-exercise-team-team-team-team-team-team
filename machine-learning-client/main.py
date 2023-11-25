@@ -11,7 +11,6 @@ with open('machine-learning-client/config.json', 'r') as f:
 
 API_TOKEN = config['api_token']
 
-
 async def main():
     client = HumeStreamClient(API_TOKEN)
     config = FaceConfig(identify_faces=True)
