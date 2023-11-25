@@ -35,6 +35,9 @@ jobs:
           pipenv install python-dateutil
           pipenv install build
           pipenv install requests
+          pipenv install chardet
+          pipenv install hume
+          pipenv install "hume[stream]"
           pipenv install gitcommitlogger
       - name: Log pull request opened
         if: github.event_name == 'pull_request' && github.event.action == 'opened'

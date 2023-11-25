@@ -150,3 +150,6 @@ cython_debug/
 
 # API Token for Machine Learning
 config.json
+
+#Output file
+output.txt

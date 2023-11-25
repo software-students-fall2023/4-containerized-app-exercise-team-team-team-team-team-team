@@ -7,6 +7,9 @@ name = "pypi"
 pylint = "*"
 black = "*"
 requests = "*"
+chardet = "*"
+hume = {extras = ["stream"], version = "*"}
+pytest = "*"
 
 [dev-packages]
 
