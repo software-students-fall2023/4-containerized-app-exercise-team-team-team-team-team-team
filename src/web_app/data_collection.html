@@ -7,33 +7,28 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen+Mono">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxanium">
     <style>
-        /* ... existing styles ... */
 
         #cameraStream {
-            width: 100%; /* Adjust as needed */
-            max-width: 400px; /* Adjust as needed */
-            border-radius: 10px;
+            width: 100%; 
+            max-width: 600px; 
+            margin-bottom: 10px;
         }
 
         .start-button {
-            position: absolute;
             font-family: 'Oxygen Mono', monospace; /* monospace as fallback */
-            top: 19em; 
-            right: 25em;
-            background-color: #FFF9EF;
+            background-color: #5B3700; 
+            color: white;
             border: none;
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
+            border-radius: 5px; 
+            width: 300px; 
+            height: 150px; 
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 24px;
-            color: black;
             cursor: pointer;
-            stroke-width: 2.5px;
-            stroke: #000;
-            box-shadow: 10px 6px 10px 0px rgba(0, 0, 0, 0.25) inset;
+            margin-top: 20px; 
+            letter-spacing: 5px;
         }
         .title {
             font-family: 'Oxanium', Arial, sans-serif; /* arial as fallback */
@@ -83,6 +78,7 @@
             border-radius: 25px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            padding: 20px; 
         }
 
     </style>
@@ -92,7 +88,7 @@
         <div class="body">Take a photo of yourself... 
             and we’ll give you a surprise!</div>
         <video id="cameraStream" autoplay></video>
-        <button class="start-button" onclick="takePhoto()">Take Photo</button>
+        <button class="start-button" onclick="takePhoto()">take photo</button>
         <canvas id="photoCanvas" style="display: none;"></canvas>
     </div>
 
@@ -101,8 +97,7 @@
         const canvas = document.getElementById('photoCanvas');
         const context = canvas.getContext('2d');
 
-        // Access the device camera and stream to video element
-        if (navigator.mediaDevices.getUserMedia) {
+        if (navigator.mediaDevices.getUserMedia) { // accessing device camera & stream to video element
             navigator.mediaDevices.getUserMedia({ video: true })
                 .then(function (stream) {
                     video.srcObject = stream;
@@ -112,14 +107,27 @@
                 });
         }
 
-        // Capture a photo from the video stream
         function takePhoto() {
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            // The image can be found in canvas.toDataURL()
-            // You can process the image further here
+            
+            // converting image to a data URL
+            var imageDataUrl = canvas.toDataURL('image/png');
+
+            // sending image to server
+            fetch('/upload', { //assuming frontend & backend are on the same domain and port
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' // body of request is in JSON format
+                },
+                body: JSON.stringify({ image: imageDataUrl }) //a string containing image data, encoded in base64 format
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
         }
     </script>
+
 </body>
 </html>
