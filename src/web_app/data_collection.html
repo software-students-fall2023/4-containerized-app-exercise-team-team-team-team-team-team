@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,91 +8,110 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen+Mono">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxanium">
     <style>
-
-        #cameraStream {
-            width: 100%; 
-            max-width: 600px; 
-            margin-bottom: 10px;
+        h1,
+        p {
+            font-family: 'Oxygen Mono', monospace;
         }
 
-        .start-button {
-            font-family: 'Oxygen Mono', monospace; /* monospace as fallback */
-            background-color: #5B3700; 
-            color: white;
-            border: none;
-            border-radius: 5px; 
-            width: 300px; 
-            height: 150px; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            cursor: pointer;
-            margin-top: 20px; 
-            letter-spacing: 5px;
+        h1 {
+            margin-bottom: 5px;
         }
-        .title {
-            font-family: 'Oxanium', Arial, sans-serif; /* arial as fallback */
+
+        p {
+            margin-top: 5px;
+        }
+
+        .header-container {
+            position: fixed;
+            top: 0;
+            width: 100%;
             background-color: #FFF9EF;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-weight: 400; 
-            font-size: 100px; 
-            font-style: normal;
-            line-height: normal;
-            letter-spacing: 29.514px;
-            color: #000; 
-            text-align: center; 
-            padding-top: 30px;
+            text-align: center;
+            padding: 10px 0;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 3px;
+            z-index: 1000;
         }
 
-        .body {
-            font-family: 'Oxygen Mono', monospace; /* monospace as fallback */
-            background-color: #FFF9EF;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-weight: 400; 
-            font-size: 40px; 
-            font-style: normal;
-            line-height: normal;
-            letter-spacing: 8px; 
-            color: #000; 
-            text-align: center; 
-        }
-        .title, .body {
-            min-height: 100px;
+        .header-container h1,
+        .header-container p {
+            margin: 0;
+            padding: 5px 0;
         }
 
-        .computer-container {
-            position: relative;
-            width: 1270px;
-            height: 700px;
-            background-color: #FFF9EF;
+        .container {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            padding: 20px;
+            margin: 10px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            border-radius: 25px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            padding: 20px; 
+            height: 100%;
+            padding-top: 100px;
         }
 
+        .image-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .button {
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 3px;
+            text-align: center;
+            cursor: pointer;
+            font-family: 'Oxygen Mono', monospace;
+            border: 0;
+            padding: 10px 20px;
+            position: relative;
+            margin: 10px auto;
+            width: auto;
+        }
+
+        .button:hover {
+            background-color: #ddd;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #FFF9EF;
+        }
+
+        img {
+            width: 350px;
+            height: auto;
+            display: block;
+        }
+
+        #cameraStream {
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 3px;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
+
 <body>
-    <div class="computer-container">
-        <div class="body">Take a photo of yourself... 
-            and we’ll give you a surprise!</div>
-        <video id="cameraStream" autoplay></video>
-        <button class="start-button" onclick="takePhoto()">take photo</button>
-        <canvas id="photoCanvas" style="display: none;"></canvas>
+    <div class="header-container">
+        <h1>Ponyo Feels</h1>
+        <p>How are you feeling today?</p>
     </div>
 
+    <div class="container">
+        <div class="image-container">
+            <video id="cameraStream" autoplay></video>
+            <canvas id="photoCanvas" style="display: none;"></canvas>
+        </div>
+        <button class="button" onclick="takePhoto()">take photo</button>
+    </div>
     <script>
         const video = document.getElementById('cameraStream');
         const canvas = document.getElementById('photoCanvas');
@@ -111,7 +131,7 @@
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            
+
             // converting image to a data URL
             var imageDataUrl = canvas.toDataURL('image/png');
 
@@ -123,10 +143,12 @@
                 },
                 body: JSON.stringify({ image: imageDataUrl }) //a string containing image data, encoded in base64 format
             })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
         }
     </script>
+
 </body>
+
 </html>
