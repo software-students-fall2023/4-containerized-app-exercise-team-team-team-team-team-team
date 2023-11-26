@@ -7,8 +7,7 @@ import chardet
 from hume import HumeStreamClient
 from hume.models.config import FaceConfig
 
-maxNum=0
-maxEmotion=""
+
 def getImage():
     files = os.listdir("images")
     return ("images/"+files[0])
@@ -43,14 +42,10 @@ async def main():
         fle = open(FILE_PATH_OUTPUT,'w',encoding=encodingOutput)
         sys.stdout = fle
         emotions = (result.get("face").get("predictions")[0]).get("emotions")
-
+        maxNum=0
+        maxEmotion=""
         for i in emotions:
                 if i.get("score")>maxNum:
                     maxNum=i.get("score")
                     maxEmotion=i.get("name")
 asyncio.run(main())
-
-def getMaxEmotion():
-    return maxEmotion
-def getMaxNum():
-    return maxNum
