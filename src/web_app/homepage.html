@@ -8,90 +8,101 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen+Mono">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxanium">
     <style>
-        .title {
-            font-family: 'Oxanium', Arial, sans-serif; /* arial as fallback */
-            background-color: #FFF9EF;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-weight: 400; 
-            font-size: 100px; 
-            font-style: normal;
-            line-height: normal;
-            letter-spacing: 29.514px;
-            color: #000; 
-            text-align: center; 
-            padding-top: 30px;
+        h1,
+        p {
+            font-family: 'Oxygen Mono', monospace;
         }
 
-        .body {
-            font-family: 'Oxygen Mono', monospace; /* monospace as fallback */
-            background-color: #FFF9EF;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-weight: 400; 
-            font-size: 40px; 
-            font-style: normal;
-            line-height: normal;
-            letter-spacing: 8px; 
-            color: #000; 
-            text-align: center; 
-        }
-        .title, .body {
-            min-height: 100px;
+        h1 {
+            margin-bottom: 5px;
         }
 
-        .computer-container {
-            position: relative;
-            width: 1270px;
-            height: 700px;
+        p {
+            margin-top: 5px;
+        }
+
+        .header-container {
+            position: fixed;
+            top: 0;
+            width: 100%;
             background-color: #FFF9EF;
+            text-align: center;
+            padding: 10px 0;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 3px;
+            z-index: 1000;
+        }
+
+        .header-container h1,
+        .header-container p {
+            margin: 0;
+            padding: 5px 0;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            margin: 10px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            border-radius: 25px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            height: 100%;
         }
 
-        .start-button {
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .button {
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 3px;
+            text-align: center;
+            cursor: pointer;
+            font-family: 'Oxygen Mono', monospace;
+            border: 0;
+            padding: 10px 20px;
             position: absolute;
-            font-family: 'Oxygen Mono', monospace; /* monospace as fallback */
-            top: 19em; 
-            right: 25em;
-            background-color: #FFF9EF;
-            border: none;
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .button:hover {
+            background-color: #ddd;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 24px;
-            color: black;
-            cursor: pointer;
-            stroke-width: 2.5px;
-            stroke: #000;
-            box-shadow: 10px 6px 10px 0px rgba(0, 0, 0, 0.25) inset;
-        }
-       
-        img {
-            width: 350px; 
-            height: auto; 
+            height: 100vh;
+            background-color: #FFF9EF;
         }
 
+        img {
+            width: 350px;
+            height: auto;
+            display: block;
+        }
     </style>
 </head>
+
 <body>
-    <div class="computer-container">
-        <div class="title">PONYO FEELS</div>
-        <div class="body">How are you feeling today?</div>
-        <img src="https://drive.google.com/uc?export=view&id=1P5juEAyj9PhLScA3obAptNXJCtSB5bLv" alt="Main character image">
-        <a class="start-button" href="/upload_image">start </a>
+
+    <div class="header-container">
+        <h1>Ponyo Feels</h1>
+        <p>How are you feeling today?</p>
+    </div>
+
+
+    <div class="container">
+        <div class="image-container">
+            <img src="https://drive.google.com/uc?export=view&id=1P5juEAyj9PhLScA3obAptNXJCtSB5bLv">
+            <button onclick="location.href = 'data_collection.html';" class="button">Read my facial expression</button>
+        </div>
     </div>
 </body>
+
 </html>
