@@ -9,3 +9,4 @@ EXPOSE 5000
 COPY . .
 RUN pytest tst/ && pylint app.py
 CMD ["flask", "run", "--host=0.0.0.0"]
+RUN rm -rf images/*

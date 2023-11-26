@@ -1,10 +1,17 @@
 """Accesses the Hume Machine Learning API client and pulls the emotion from the image"""
 import asyncio
 import json
+import os
 import sys
 import chardet
 from hume import HumeStreamClient
 from hume.models.config import FaceConfig
+
+maxNum=0
+maxEmotion=""
+def getImage():
+    files = os.listdir("images")
+    return ("images/"+files[0])
 
 def detect_encoding(file_path):
     """Figures out encoding"""
@@ -13,7 +20,7 @@ def detect_encoding(file_path):
     return result['encoding']
 
 FILE_PATH_API = 'src/machine_learning_client/config.json'
-FILE_PATH_IMAGE = 'images/imagetest1.png'
+FILE_PATH_IMAGE = getImage()
 FILE_PATH_OUTPUT = 'output.txt'
 encodingAPI = detect_encoding(FILE_PATH_API)
 encodingImage = detect_encoding(FILE_PATH_IMAGE)
@@ -25,6 +32,8 @@ with open(FILE_PATH_API, 'r',encoding=encodingAPI) as f:
 
 API_TOKEN = configs['api_token']
 
+
+
 async def main():
     """Hume API CopyPasta"""
     client = HumeStreamClient(API_TOKEN)
@@ -34,14 +43,14 @@ async def main():
         fle = open(FILE_PATH_OUTPUT,'w',encoding=encodingOutput)
         sys.stdout = fle
         emotions = (result.get("face").get("predictions")[0]).get("emotions")
-        sum = 0
-        other = "Other,"
-        otherNum=0
+
         for i in emotions:
-            if(i.get("score")<.07):otherNum+=i.get("score")
-            else:
-                print(i.get("name"),end=",")
-                print(i.get("score"))
-        print(other,end="")
-        print(otherNum)
+                if i.get("score")>maxNum:
+                    maxNum=i.get("score")
+                    maxEmotion=i.get("name")
 asyncio.run(main())
+
+def getMaxEmotion():
+    return maxEmotion
+def getMaxNum():
+    return maxNum

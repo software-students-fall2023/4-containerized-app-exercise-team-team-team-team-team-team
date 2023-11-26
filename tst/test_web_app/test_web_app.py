@@ -4,7 +4,7 @@ import pytest
 import os
 from dotenv import load_dotenv
 from src.web_app.web_app import connectToDB
-from machine_learning_client.main import *
+from src.machine_learning_client.main import *
 
 load_dotenv()
 DATABASE_CONNECTION_STRING = os.getenv('DATABASE_CONNECTION_STRING')
