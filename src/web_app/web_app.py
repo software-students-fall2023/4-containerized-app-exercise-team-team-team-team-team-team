@@ -38,15 +38,27 @@ def view_dashboard():
 @app.route('/upload', methods=['POST'])
 def upload_image():
     try:
-        image_data = request.json['image'] # extracting base64 image data
-        image_binary = base64.b64decode(image_data.split(',')[1]) # if size is an issue we can convert it from base64 to binary 
+        image_data = request.json['image']  # extracting base64 image data
+        image_binary = base64.b64decode(image_data.split(',')[1])  # decode the image
 
-        # storing in mongodb
-        result = collection.insert_one({"image": image_binary})
-        return jsonify({"message": "Image uploaded successfully", "id": str(result.inserted_id)}) # inserted_id contains unique ID assigned by MongoDB to image
+        # determining file path
+        script_dir = os.path.dirname(__file__)  # directory of the script
+        target_dir = os.path.join(script_dir, '..', '..', '.github', 'images')  # navigating up to .github/images
+        # os.makedirs(target_dir, exist_ok=True)  -> creating  directory if it doesn't exist, not sure if this might be an issue on other machines...
+
+        # defining file name, it doesn't need to be unique if docker file clears image folder
+        file_path = os.path.join(target_dir, 'uploaded_image.png') 
+
+        # writing image data into a file
+        with open(file_path, 'wb') as file:
+            file.write(image_binary)
+
+        return jsonify({"message": "Image uploaded successfully", "file_path": file_path})
+
     except Exception as e:
         logging.error(f"Error uploading image: {e}")
         return jsonify({"error": "Error uploading image"}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)
