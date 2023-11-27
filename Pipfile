@@ -10,6 +10,7 @@ requests = "*"
 chardet = "*"
 hume = {extras = ["stream"], version = "*"}
 pytest = "*"
+flask = "*"
 
 [dev-packages]
 
