@@ -47,7 +47,7 @@ def data_collection_post():
 
         # determining file path
         script_dir = os.path.dirname(__file__)  # directory of the script
-        target_dir = os.path.join(script_dir, '..', '..', 'images')  # navigating up to .github/images
+        target_dir = os.path.join(script_dir, '..', '..', 'images')  # navigating up 'images' folder
         # os.makedirs(target_dir, exist_ok=True)  -> creating  directory if it doesn't exist, not sure if this might be an issue on other machines...
 
         # defining file name, it doesn't need to be unique if docker file clears image folder

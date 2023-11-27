@@ -11,6 +11,8 @@ chardet = "*"
 hume = {extras = ["stream"], version = "*"}
 pytest = "*"
 flask = "*"
+python-dotenv = "*"
+pymongo = "*"
 
 [dev-packages]
 
