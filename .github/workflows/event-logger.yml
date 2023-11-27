@@ -35,6 +35,9 @@ jobs:
           pipenv install python-dateutil
           pipenv install build
           pipenv install requests
+          pipenv install python-dotenv
+          pipenv install flask
+          pipenv install pymongo
           pipenv install chardet
           pipenv install hume
           pipenv install "hume[stream]"
