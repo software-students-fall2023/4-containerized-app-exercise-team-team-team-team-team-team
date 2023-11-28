@@ -1,8 +1,6 @@
 """Accesses the Hume Machine Learning API client and pulls the emotion from the image"""
-import asyncio
 import json
 import os
-import sys
 import chardet
 from hume import HumeStreamClient
 from hume.models.config import FaceConfig
@@ -44,8 +42,7 @@ async def main():
         max_emotion = "abc"
         for i in emotions:
             if i.get("score") > max_num:
-                
                 max_num = i.get("score")
                 max_emotion = i.get("name")
         max_emotion = max_emotion + ""
-        return [max_emotion,max_num]
+        return [max_emotion, max_num]

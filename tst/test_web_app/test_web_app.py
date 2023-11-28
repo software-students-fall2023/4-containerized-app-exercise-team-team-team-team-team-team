@@ -1,9 +1,7 @@
 """Does tests for ze program"""
 import os
-import pytest
-import pymongo
 from dotenv import load_dotenv
-from src.web_app.web_app import connect_to_db
+from src.machine_learning_client.web_app import connect_to_db
 from src.machine_learning_client.main import detect_encoding
 
 
