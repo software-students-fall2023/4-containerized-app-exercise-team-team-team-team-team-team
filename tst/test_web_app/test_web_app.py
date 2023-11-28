@@ -1,7 +1,8 @@
 """Does tests for ze program"""
 import os
-import json
-import base64
+
+# import json
+# import base64
 from dotenv import load_dotenv
 from src.machine_learning_client.web_app import connect_to_db
 from src.machine_learning_client.main import detect_encoding
@@ -28,6 +29,7 @@ def test_collection_and_database_exist():
     ml_data, db = connect_to_db(database_connection_string())
     assert ml_data.name == "DataForMachineLearning"
     assert db.name == "MLData"
+
 
 def test_detect_encoding1():
     """Tests detect encoding 1"""

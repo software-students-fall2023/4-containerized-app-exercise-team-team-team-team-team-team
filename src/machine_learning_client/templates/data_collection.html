@@ -144,7 +144,10 @@
                 body: JSON.stringify({ image: imageDataUrl }) //a string containing image data, encoded in base64 format
             })
                 .then(response => response.json())
-                .then(data => console.log(data))
+                .then(data => {
+                console.log(data);
+                window.location.href = '/data_output'; // direct to data_output page
+                })
                 .catch(error => console.error('Error:', error));
         }
     </script>
