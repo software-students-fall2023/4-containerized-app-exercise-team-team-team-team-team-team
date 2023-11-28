@@ -7,6 +7,7 @@ COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 EXPOSE 5000
 COPY . .
-RUN pytest tst/ && pylint app.py
+RUN coverage run -m pytest
+RUN pylint */.py
 CMD ["flask", "run", "--host=0.0.0.0"]
 RUN rm -rf images/*
