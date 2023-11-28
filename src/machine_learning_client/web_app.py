@@ -1,37 +1,42 @@
 """All necessary imports to run web_app.py"""
 import os
+import asyncio
 import logging
 import base64
+import pymongo
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, jsonify
+from main import main, detect_encoding
 
 # import pymongo
 
 
 logging.basicConfig(level=logging.INFO)
 load_dotenv()
-# DATABASE_CONNECTION_STRING = os.getenv('DATABASE_CONNECTION_STRING')
+DATABASE_CONNECTION_STRING = os.getenv("DATABASE_CONNECTION_STRING")
 log = logging.getLogger()
 app = Flask(__name__)
 
-# def connectToDB(connectionString):
-#     try:
-#         client = pymongo.MongoClient(connectionString)
-#         db = client.MLData
-#         mlData = db.get_collection('DataForMachineLearning')
-#         # print("que")
-#         return mlData, db
-#     except Exception as e:
-#         logging.error(f"Exception connecting to MongoDB: {e}")
-#         raise
-#         # print(f"Exception type: {type(e)}")
-#         # # log.error(f"Unsuccessful login to client. Error code:{e}")
-#         # print("made it here")
-#         # raise
+
+def connect_to_db(connection_string):
+    """Connects to DB"""
+    try:
+        client = pymongo.MongoClient(connection_string)
+        db = client.MLData
+        ml_data = db.get_collection("DataForMachineLearning")
+        # print("que")
+        return ml_data, db
+    except ConnectionError as e:
+        logging.error("Exception connecting to MongoDB: %s", e)
+        raise
+        # print(f"Exception type: {type(e)}")
+        # # log.error(f"Unsuccessful login to client. Error code:{e}")
+        # print("made it here")
+        # raise
 
 
 log = logging.getLogger()
-# collection, dataBase = connectToDB(DATABASE_CONNECTION_STRING)
+collection, dataBase = connect_to_db(DATABASE_CONNECTION_STRING)
 
 
 @app.route("/")
@@ -67,14 +72,23 @@ def data_collection_post():
         # writing image data into a file
         with open(file_path, "wb") as file:
             file.write(image_binary)
-
+        stuff = asyncio.run(main())
+        write_out(stuff)
         return jsonify(
             {"message": "Image uploaded successfully", "file_path": file_path}
         )
 
-    except Exception as e:
+    except ConnectionError as e:
         logging.error("Error uploading image: %s", e)
         return jsonify({"error": "Error uploading image"}), 500
+
+
+def write_out(stuff):
+    """Writes to output.txt"""
+    fp_out = "output.txt"
+    encoding = detect_encoding(fp_out)
+    with open(fp_out, "w", encoding=encoding) as outp:
+        outp.write(stuff[0] + "," + str(stuff[1]))
 
 
 if __name__ == "__main__":
