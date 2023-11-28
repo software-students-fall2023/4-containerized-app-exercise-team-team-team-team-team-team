@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home screen</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen+Mono">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxanium">
+    <style>
+        h1,
+        p {
+            font-family: 'Oxygen Mono', monospace;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+        }
+
+        p {
+            margin-top: 5px;
+        }
+
+        .header-container {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #FFF9EF;
+            text-align: center;
+            padding: 10px 0;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 3px;
+            z-index: 1000;
+        }
+
+        .header-container h1,
+        .header-container p {
+            margin: 0;
+            padding: 5px 0;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .button {
+            /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 3px; */
+            box-shadow: inset 0px 3px 3px rgba(0, 0, 0, 0.24);
+            text-align: center;
+            cursor: pointer;
+            font-family: 'Oxygen Mono', monospace;
+            background-color: #FFF9EF;
+            border-radius: 50px;
+            border: 0;
+            padding: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .button:hover {
+            background-color: #ddd;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #FFF9EF;
+        }
+
+        img {
+            width: 350px;
+            height: auto;
+            display: block;
+        }
+
+        .emotion-display {
+            text-align: center; 
+            font-weight: bold;  
+            font-size: 24px;   
+            margin-top: 20px;  
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="header-container">
+        <h1>Ponyo Feels</h1>
+        <p>How are you feeling today?</p>
+    </div>
+
+
+    <div class="container">
+        <div class="image-container">
+            <div class="image-container">
+                <div class="emotion-display">
+                    <p>You seem to be feeling: {{ emotion }}</p>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

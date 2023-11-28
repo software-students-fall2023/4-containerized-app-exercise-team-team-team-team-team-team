@@ -1,5 +1,8 @@
 """Does tests for ze program"""
 import os
+
+# import json
+# import base64
 from dotenv import load_dotenv
 from src.machine_learning_client.web_app import connect_to_db
 from src.machine_learning_client.main import detect_encoding

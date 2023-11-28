@@ -6,7 +6,7 @@ import base64
 import pymongo
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, jsonify
-from main import main, detect_encoding
+from main import main
 
 # import pymongo
 
@@ -16,6 +16,7 @@ load_dotenv()
 DATABASE_CONNECTION_STRING = os.getenv("DATABASE_CONNECTION_STRING")
 log = logging.getLogger()
 app = Flask(__name__)
+app.secret_key = "no body no crime"
 
 
 def connect_to_db(connection_string):
@@ -72,8 +73,8 @@ def data_collection_post():
         # writing image data into a file
         with open(file_path, "wb") as file:
             file.write(image_binary)
-        stuff = asyncio.run(main())
-        write_out(stuff)
+        # return redirect(url_for('return_emotion'))
+
         return jsonify(
             {"message": "Image uploaded successfully", "file_path": file_path}
         )
@@ -83,12 +84,16 @@ def data_collection_post():
         return jsonify({"error": "Error uploading image"}), 500
 
 
-def write_out(stuff):
-    """Writes to output.txt"""
-    fp_out = "output.txt"
-    encoding = detect_encoding(fp_out)
-    with open(fp_out, "w", encoding=encoding) as outp:
-        outp.write(stuff[0] + "," + str(stuff[1]))
+@app.route("/data_output", methods=["GET"])
+def return_emotion():
+    """returns emotion to the output page"""
+    stuff = asyncio.run(main())
+    emotion = stuff[0]
+    return render_template("data_output.html", emotion=emotion)
+    # fp_out = "output.txt"
+    # encoding = detect_encoding(fp_out)
+    # with open(fp_out, "w", encoding=encoding) as outp:
+    #     outp.write(stuff[0] + "," + str(stuff[1]))
 
 
 if __name__ == "__main__":
