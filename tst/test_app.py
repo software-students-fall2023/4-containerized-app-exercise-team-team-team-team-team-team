@@ -1,8 +1,10 @@
 """Modules"""
 import os
+import pymongo
 import pytest
 from dotenv import load_dotenv
-from app import connect_to_db
+from src.web_app.web_app import connect_to_db
+from src.machine_learning_client.main import main
 
 
 load_dotenv()
@@ -27,3 +29,6 @@ def test_collection_and_database_exist():
     ml_data, db = connect_to_db(DATABASE_CONNECTION_STRING)
     assert ml_data.name == "DataForMachineLearning"
     assert db.name == "MLData"
+
+def test_main():
+    main()
