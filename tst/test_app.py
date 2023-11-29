@@ -33,3 +33,4 @@ def test_collection_and_database_exist():
 def test_main():
     """Tests the main function"""
     main()
+
