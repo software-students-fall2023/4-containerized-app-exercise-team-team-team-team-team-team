@@ -100,14 +100,15 @@ def return_emotion():
             db_emotion_list[e] += 1
         else:
             db_emotion_list[e] = 1
-    with open("output.txt", "w", encoding="utf-8") as output_file:
-        for key, value in db_emotion_list.items():
-            if key is not None:
-                output_file.write(f"{key},{value}\n")
+    # with open("output.txt", "w", encoding="utf-8") as output_file:
+    #     for key, value in db_emotion_list.items():
+    #         if key is not None:
+    #             output_file.write(f"{key},{value}\n")
 
-    output_file.close()
+    # output_file.close()
 
-    return render_template("data_output.html", emotion=emotion)
+    return render_template("data_output.html", emotion=emotion, emotions_data=db_emotion_list)
+
 
 
 if __name__ == "__main__":

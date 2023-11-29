@@ -1,1 +1,2 @@
-Excitement,0.6878579258918762
+Boredom,1
+Confusion,1
