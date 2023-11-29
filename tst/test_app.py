@@ -2,13 +2,9 @@
 import os
 import pytest
 from dotenv import load_dotenv
-<<<<<<< Updated upstream
-from src.machine_learning_client.web_app import connect_to_db
-from src.machine_learning_client.main import main
+from src.web_app import connect_to_db
+from src.main import main
 
-=======
-from machine_learning_client.web_app import connect_to_db
->>>>>>> Stashed changes
 
 load_dotenv()
 DATABASE_CONNECTION_STRING = os.getenv("DATABASE_CONNECTION_STRING")
