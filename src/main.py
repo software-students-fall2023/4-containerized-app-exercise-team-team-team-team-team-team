@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from hume import HumeStreamClient
 from hume.models.config import FaceConfig
 
+
 def get_image():
     """Grabs the only image in the images folder!"""
     script_direct = os.path.dirname(os.path.abspath(__file__))
@@ -13,12 +14,12 @@ def get_image():
     return os.path.join(images_path, os.listdir(images_path)[0])
 
 
-
 def detect_encoding(file_path):
     """Figures out encoding"""
     with open(file_path, "rb") as f1:
         result = chardet.detect(f1.read())
     return result["encoding"]
+
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 FILE_PATH_API = os.path.join(script_dir, "config.json")

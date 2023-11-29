@@ -80,6 +80,7 @@ def data_collection_post():
         logging.error("Error uploading image: %s", e)
         return jsonify({"error": "Error uploading image"}), 500
 
+
 @app.route("/data_output", methods=["GET"])
 def return_emotion():
     """returns emotion to the output page"""
@@ -92,6 +93,7 @@ def return_emotion():
     ml_lib = connect_to_db(DATABASE_CONNECTION_STRING)
     ml_lib.insert_one(emotion_dic)
     return render_template("data_output.html", emotion=emotion)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
