@@ -92,9 +92,22 @@ def return_emotion():
     emotion_dic = {"emotion": emotion}
     ml_lib = connect_to_db(DATABASE_CONNECTION_STRING)
     ml_lib.insert_one(emotion_dic)
+    # collect data from ml_lib
+    db_emotion_list = {}
+    for doc in ml_lib.find():
+        e = doc.get("emotion")
+        if e in db_emotion_list:
+            db_emotion_list[e] += 1
+        else:
+            db_emotion_list[e] = 1
+    with open("output.txt", "w", encoding="utf-8") as output_file:
+        for key, value in db_emotion_list.items():
+            if key is not None:
+                output_file.write(f"{key},{value}\n")
+
+    output_file.close()
+
     return render_template("data_output.html", emotion=emotion)
-
-
 
 
 if __name__ == "__main__":
