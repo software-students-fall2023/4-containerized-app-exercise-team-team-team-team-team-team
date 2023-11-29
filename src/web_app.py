@@ -21,11 +21,11 @@ def connect_to_db(connection_string):
     """Connects to DB"""
     try:
         client = pymongo.MongoClient(connection_string)
-        db = client.MLData
-        ml_data = db.get_collection("DataForMachineLearning")
+        database = client.MLData
+        ml_data = database.get_collection("DataForMachineLearning")
         return ml_data
-    except ConnectionError as e:
-        logging.error("Exception connecting to MongoDB: %s", e)
+    except ConnectionError as error:
+        logging.error("Exception connecting to MongoDB: %s", error)
         raise
         # print(f"Exception type: {type(e)}")
         # # log.error(f"Unsuccessful login to client. Error code:{e}")
@@ -76,8 +76,8 @@ def data_collection_post():
             {"message": "Image uploaded successfully", "file_path": file_path}
         )
 
-    except ConnectionError as e:
-        logging.error("Error uploading image: %s", e)
+    except ConnectionError as error:
+        logging.error("Error uploading image: %s", error)
         return jsonify({"error": "Error uploading image"}), 500
 
 
@@ -95,11 +95,11 @@ def return_emotion():
     # collect data from ml_lib
     db_emotion_list = {}
     for doc in ml_lib.find():
-        e = doc.get("emotion")
-        if e in db_emotion_list:
-            db_emotion_list[e] += 1
+        emote = doc.get("emotion")
+        if emote in db_emotion_list:
+            db_emotion_list[emote] += 1
         else:
-            db_emotion_list[e] = 1
+            db_emotion_list[emote] = 1
     # with open("output.txt", "w", encoding="utf-8") as output_file:
     #     for key, value in db_emotion_list.items():
     #         if key is not None:
@@ -107,8 +107,9 @@ def return_emotion():
 
     # output_file.close()
 
-    return render_template("data_output.html", emotion=emotion, emotions_data=db_emotion_list)
-
+    return render_template(
+        "data_output.html", emotion=emotion, emotions_data=db_emotion_list
+    )
 
 
 if __name__ == "__main__":
