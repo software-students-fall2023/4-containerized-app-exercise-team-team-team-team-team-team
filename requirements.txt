@@ -3,6 +3,7 @@ python-dotenv
 pymongo
 hume
 pytest
+coverage
 pylint
 chardet
 coverage
