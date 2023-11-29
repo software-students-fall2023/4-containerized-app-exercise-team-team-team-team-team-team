@@ -16,8 +16,8 @@ def get_image():
 
 def detect_encoding(file_path):
     """Figures out encoding"""
-    with open(file_path, "rb") as f1:
-        result = chardet.detect(f1.read())
+    with open(file_path, "rb") as file:
+        result = chardet.detect(file.read())
     return result["encoding"]
 
 
