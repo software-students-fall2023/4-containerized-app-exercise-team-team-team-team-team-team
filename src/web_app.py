@@ -8,8 +8,6 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, request, jsonify
 from main import main
 
-# import pymongo
-
 
 logging.basicConfig(level=logging.INFO)
 load_dotenv()
@@ -25,8 +23,7 @@ def connect_to_db(connection_string):
         client = pymongo.MongoClient(connection_string)
         db = client.MLData
         ml_data = db.get_collection("DataForMachineLearning")
-        # print("que")
-        return ml_data, db
+        return ml_data
     except ConnectionError as e:
         logging.error("Exception connecting to MongoDB: %s", e)
         raise
@@ -37,7 +34,7 @@ def connect_to_db(connection_string):
 
 
 log = logging.getLogger()
-collection, dataBase = connect_to_db(DATABASE_CONNECTION_STRING)
+ml_collection = connect_to_db(DATABASE_CONNECTION_STRING)
 
 
 @app.route("/")
@@ -62,7 +59,7 @@ def data_collection_post():
         # determining file path
         script_dir = os.path.dirname(__file__)  # directory of the script
         target_dir = os.path.join(
-            script_dir, "..", "..", "images"
+            script_dir, "..", "images"
         )  # navigating up 'images' folder
         # os.makedirs(target_dir, exist_ok=True)
         # -> creating directory if it doesn't exist, might be an issue on other machines
@@ -87,13 +84,15 @@ def data_collection_post():
 @app.route("/data_output", methods=["GET"])
 def return_emotion():
     """returns emotion to the output page"""
-    stuff = asyncio.run(main())
-    emotion = stuff[0]
+
+    # Run the main coroutine concurrently
+    result = asyncio.run(main())
+
+    emotion = result[0]
+    emotion_dic = {"emotion": emotion}
+    ml_lib = connect_to_db(DATABASE_CONNECTION_STRING)
+    ml_lib.insert_one(emotion_dic)
     return render_template("data_output.html", emotion=emotion)
-    # fp_out = "output.txt"
-    # encoding = detect_encoding(fp_out)
-    # with open(fp_out, "w", encoding=encoding) as outp:
-    #     outp.write(stuff[0] + "," + str(stuff[1]))
 
 
 
