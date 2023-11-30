@@ -99,7 +99,8 @@ def return_emotion():
         if emote in db_emotion_list:
             db_emotion_list[emote] += 1
         else:
-            db_emotion_list[emote] = 1
+            if emote is not None:
+                db_emotion_list[emote] = 1
     # with open("output.txt", "w", encoding="utf-8") as output_file:
     #     for key, value in db_emotion_list.items():
     #         if key is not None:
@@ -113,4 +114,4 @@ def return_emotion():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5001)
