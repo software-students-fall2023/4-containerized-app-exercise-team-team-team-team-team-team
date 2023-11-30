@@ -2,14 +2,16 @@
 version: '3'
 services:
   web_app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    container_name: ponyo-feels
+    # restart: always
+    build: .
     ports:
-      - "5001:5001"
-    depends_on:
-      - database
-  database:
-    image: mongo:latest
+      - '5001:5001'
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
     ports:
-      - "27017:27017"
+      - '27017:27017'
+  
