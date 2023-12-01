@@ -21,30 +21,32 @@ In addition to recognizing emotions, Ponyo Feels currently suggests Spotify song
 
 These emotions are then stored in a database, allowing the app to provide users with insights into the most common emotions experienced by all its users.
 
+# Dependencies
+Ponyo Feels uses Hume APIs that require unique keys for access. 
+If you do not have a personal Hume API key, create an account with [Hume.AI](https://www.hume.ai). 
+Then, open the 'API Keys' page from the vertical navigation bar on the left-hand side of the main page. Once directed to the 'API Keys', you will be able to reveal and copy your personal API Key.
+
+Ponyo Feels relies on Docker for containerization - ensure Docker is installed on your machine. 
+If not, download and install it [here](https://www.docker.com/products/docker-desktop/).
+
+
 # Installation
 
 To get started, clone the repository to your local machine and navigate to the project's directory. 
 
-First you need to create an account on [hume](https://www.hume.ai). Once you've created an account on the left hand side of the screen you will see a button that says `API Keys` with a picture of a key next to it. Click on that button and copy your personal API Token. Reminder, this is a personal and private API token that is unique to you, do not share it with others! 
-
-Inside of the `4-containerized-app-exercise-team-team-team-team-team-team/src/` create a file called `config.json` inside of that file you will copy and paste the folllowing:
+Inside of `4-containerized-app-exercise-team-team-team-team-team-team/src/`, create a `config.json` file with the following contents:
 
 ```
 {
     "api_token": "YOUR_API_TOKEN_HERE"
 }
 ```
+Replace the text `YOUR_API_TOKEN_HERE` with your Hume API Key, and save. 
 
-Replace the text `YOUR_API_TOKEN_HERE` with the API token you copied from Hume inside of the quotes. When done save the file and exit it. 
-
-Once done with that you need to go to the root directory `4-containerized-app-exercise-team-team-team-team-team-team/` create a file called `.env` and in that file copy and paste the following text: 
-
+Next navigate to the root directory `4-containerized-app-exercise-team-team-team-team-team-team/` and create a `.env` file with the following contents: 
+```
 `DATABASE_CONNECTION_STRING = "mongodb+srv://jaar2023:me8rd2iS73YJLTfW@recipes01.ajqwb7q.mongodb.net/"`
-
-Once done save and close the file. 
-
-Finally, ensure Docker is installed on your machine. If not, download and install it [here](https://www.docker.com/products/docker-desktop/).
-
+``` 
 
 # Usage
 Begin the application by running the following command: `docker-compose up --build`
