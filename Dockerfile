@@ -16,7 +16,7 @@ RUN pip install -r requirements.txt
 EXPOSE 5001
 COPY . .
 # RUN coverage run -m pytest
-RUN pylint src/*.py
+RUN pylint src/*.py 
 WORKDIR /src/
 CMD ["python3", "web_app.py"]
 RUN rm -rf images/*

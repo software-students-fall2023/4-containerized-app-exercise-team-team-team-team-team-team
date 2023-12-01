@@ -23,7 +23,7 @@ def connect_to_db(connection_string):
         client = pymongo.MongoClient(connection_string)
         database = client.MLData
         ml_data = database.get_collection("DataForMachineLearning")
-        return ml_data
+        return ml_data, database
     except ConnectionError as error:
         logging.error("Exception connecting to MongoDB: %s", error)
         raise
@@ -84,15 +84,27 @@ def data_collection_post():
 @app.route("/data_output", methods=["GET"])
 def return_emotion():
     """returns emotion to the output page"""
+    emotion = get_emotion()
+    db_emotion_list = get_emotion_aggregate()
 
-    # Run the main coroutine concurrently
+    return render_template(
+        "data_output.html", emotion=emotion, emotions_data=db_emotion_list
+    )
+
+
+def get_emotion():
+    """Get the current emotion using the main function."""
     result = asyncio.run(main())
-
     emotion = result[0]
     emotion_dic = {"emotion": emotion}
-    ml_lib = connect_to_db(DATABASE_CONNECTION_STRING)
+    ml_lib, _ = connect_to_db(DATABASE_CONNECTION_STRING)
     ml_lib.insert_one(emotion_dic)
-    # collect data from ml_lib
+    return emotion
+
+
+def get_emotion_aggregate():
+    """Aggregate emotion data from the database."""
+    ml_lib, _ = connect_to_db(DATABASE_CONNECTION_STRING)
     db_emotion_list = {}
     for doc in ml_lib.find():
         emote = doc.get("emotion")
@@ -101,16 +113,33 @@ def return_emotion():
         else:
             if emote is not None:
                 db_emotion_list[emote] = 1
-    # with open("output.txt", "w", encoding="utf-8") as output_file:
-    #     for key, value in db_emotion_list.items():
-    #         if key is not None:
-    #             output_file.write(f"{key},{value}\n")
+    return db_emotion_list
 
-    # output_file.close()
 
-    return render_template(
-        "data_output.html", emotion=emotion, emotions_data=db_emotion_list
-    )
+# @app.route("/data_output", methods=["GET"])
+# def return_emotion():
+#     """returns emotion to the output page"""
+
+#     # Run the main coroutine concurrently
+#     result = asyncio.run(main())
+
+#     emotion = result[0]
+#     emotion_dic = {"emotion": emotion}
+#     ml_lib, _ = connect_to_db(DATABASE_CONNECTION_STRING)
+#     ml_lib.insert_one(emotion_dic)
+#     # collect data from ml_lib
+#     db_emotion_list = {}
+#     for doc in ml_lib.find():
+#         emote = doc.get("emotion")
+#         if emote in db_emotion_list:
+#             db_emotion_list[emote] += 1
+#         else:
+#             if emote is not None:
+#                 db_emotion_list[emote] = 1
+
+#     return render_template(
+#         "data_output.html", emotion=emotion, emotions_data=db_emotion_list
+#     )
 
 
 if __name__ == "__main__":
