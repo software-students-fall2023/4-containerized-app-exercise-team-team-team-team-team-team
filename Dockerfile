@@ -19,6 +19,5 @@ COPY . .
 RUN pylint src/*.py
 WORKDIR /
 CMD ["python3", "-m", "src.web_app"]
-RUN rm -rf images/*
 
 #! Make sure that all containers can comm with each other.
