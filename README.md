@@ -2,16 +2,13 @@
 [![CI/CD](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-team-team-team-team-team/actions/workflows/python-app.yml/badge.svg)](https://github.com/software-students-fall2023/4-containerized-app-exercise-team-team-team-team-team-team/actions/workflows/python-app.yml)
 
 # Team Members
-(`alexh212`)[https://github.com/alexh212]- Alex Hmitti
+(alexh212)[https://github.com/alexh212]- Alex Hmitti
 
-(`as13909`)[https://github.com/as13909] - Aaron Stein :)
+(as13909)[https://github.com/as13909] - Aaron Stein :)
 
-(`Rafinator123`)[https://github.com/Rafinator123] - Rafael Nadal-Scala
+(Rafinator123)[https://github.com/Rafinator123] - Rafael Nadal-Scala
 
-(`jk021227`)[https://github.com/jk021227] - Jhon Kim 
-
-- Frontend design
-- Testing
+(jk021227)[https://github.com/jk021227] - Jhon Kim 
 
 # Containerized App Exercise
 
