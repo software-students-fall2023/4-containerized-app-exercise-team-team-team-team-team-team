@@ -4,8 +4,8 @@ import pytest
 import json
 import base64
 from dotenv import load_dotenv
-from src.web_app import connect_to_db, app, get_emotion_aggregate
 from src.main import detect_encoding, get_image
+from src.web_app import connect_to_db, app, get_emotion_aggregate
 from unittest.mock import patch, MagicMock
 
 load_dotenv()

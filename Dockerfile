@@ -16,9 +16,9 @@ RUN pip install -r requirements.txt
 EXPOSE 5001
 COPY . .
 # RUN coverage run -m pytest
-RUN pylint src/*.py 
-WORKDIR /src/
-CMD ["python3", "web_app.py"]
+RUN pylint src/*.py
+WORKDIR /
+CMD ["python3", "-m", "src.web_app"]
 RUN rm -rf images/*
 
 #! Make sure that all containers can comm with each other.
