@@ -44,7 +44,10 @@ async def main():
     config = FaceConfig(identify_faces=True)
     async with client.connect([config]) as socket:
         result = await socket.send_file(FILE_PATH_IMAGE)
-        if str(result.get("face"))=="{'warning': 'No faces detected.', 'code': 'W0103'}":
+        if (
+            str(result.get("face"))
+            == "{'warning': 'No faces detected.', 'code': 'W0103'}"
+        ):
             max_emotion = "None"
             max_num = 1
         else:
