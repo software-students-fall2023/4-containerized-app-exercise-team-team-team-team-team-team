@@ -28,11 +28,7 @@ encodingAPI = detect_encoding(FILE_PATH_API)
 encodingImage = detect_encoding(FILE_PATH_IMAGE)
 
 
-with open(FILE_PATH_API, "r", encoding=encodingAPI) as f:
-    configs = json.load(f)
-#! Figure out how to containerize this.
-API_TOKEN = configs["api_token"]
-
+api_token = os.getenv("API_TOKEN")
 
 async def main():
     """Hume API CopyPasta"""
