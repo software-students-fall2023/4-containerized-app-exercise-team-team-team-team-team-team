@@ -44,12 +44,16 @@ async def main():
     config = FaceConfig(identify_faces=True)
     async with client.connect([config]) as socket:
         result = await socket.send_file(FILE_PATH_IMAGE)
-        emotions = (result.get("face").get("predictions")[0]).get("emotions")
-        max_num = 0
-        max_emotion = ""
-        for i in emotions:
-            if i.get("score") > max_num:
-                max_num = i.get("score")
-                max_emotion = i.get("name")
-        max_emotion = max_emotion + ""
+        if str(result.get("face"))=="{'warning': 'No faces detected.', 'code': 'W0103'}":
+            max_emotion = "None"
+            max_num = 1
+        else:
+            emotions = (result.get("face").get("predictions")[0]).get("emotions")
+            max_num = 0
+            max_emotion = ""
+            for i in emotions:
+                if i.get("score") > max_num:
+                    max_num = i.get("score")
+                    max_emotion = i.get("name")
+            max_emotion = max_emotion + ""
         return [max_emotion, max_num]
