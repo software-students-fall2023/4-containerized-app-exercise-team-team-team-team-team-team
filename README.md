@@ -16,4 +16,16 @@
 This app will open a webpage and allows the user to take a picture. Once the picture has been taken a machine learning model from [hume](https://www.hume.ai) will anakyze the picture and return the most prominent emotions based off of the users facial expression. The emotions will then be sent to our database where we will present the user with the most prominent emotions from all of the users who've taken pictures. 
 
 # Running
+First you need to create an account on [hume](https://www.hume.ai). Once you've created an account on the left hand side of the screen you will see a button that says `API Keys` with a picture of a key next to it. Click on that button and copy your personal API Token. Reminder, this is a personal and private API token that is unique to you, do not share it with others! 
+
+Inside of the `4-containerized-app-exercise-team-team-team-team-team-team/src/` create a file called `config.json` inside of that file you will copy and paste the folllowing:
+```
+{
+    "api_token": "YOUR_API_TOKEN_HERE"
+}
+```
+Replace the text `YOUR API TOKEN HERE` leaving the quotes. When done save the file and exit it. 
+
+Once done with that you need to go to the root directory `4-containerized-app-exercise-team-team-team-team-team-team/`
+
 To run this project enter: `docker-compose up --build`. Once docker has finished running through the steps a text will appear like this: ``ponyo-feels  |  * Running on http://127.0.0.1:5001`` click on the link and it will bring you to the webpage where you can take a picture. Once on the webpage you must allow the page to access your computers camera. If you do not allow the camera or if your computer does not have a camera you sadly will not be able to use this application. 
