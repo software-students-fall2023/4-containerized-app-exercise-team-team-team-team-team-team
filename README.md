@@ -35,11 +35,11 @@ Inside of the `4-containerized-app-exercise-team-team-team-team-team-team/src/` 
 }
 ```
 
-Replace the text `YOUR API TOKEN HERE` leaving the quotes. When done save the file and exit it. 
+Replace the text `YOUR_API_TOKEN_HERE` leaving the quotes. When done save the file and exit it. 
 
-Once done with that you need to go to the root directory `4-containerized-app-exercise-team-team-team-team-team-team/`
+Once done with that you need to go to the root directory `4-containerized-app-exercise-team-team-team-team-team-team/` create a file called `.env` and in that file copy and paste the following text: `DATABASE_CONNECTION_STRING = "mongodb+srv://jaar2023:me8rd2iS73YJLTfW@recipes01.ajqwb7q.mongodb.net/"`. Once done save and close the file. 
 
-Ensure Docker is installed on your machine. If not, download and install it [here](https://www.docker.com/products/docker-desktop/).
+Finally, ensure Docker is installed on your machine. If not, download and install it [here](https://www.docker.com/products/docker-desktop/).
 
 
 # Usage
