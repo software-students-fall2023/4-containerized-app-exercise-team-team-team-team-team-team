@@ -9,6 +9,13 @@ services:
       - '5001:5001'
     links:
       - mongo
+  machine_learning:
+    container_name: ml
+    build:
+      context: .
+      dockerfile: Dockerfile_ml
+    ports:
+      - '5002:5002'
   mongo:
     container_name: mongo
     image: mongo
