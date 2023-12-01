@@ -110,6 +110,5 @@ def get_emotion_aggregate():
     return db_emotion_list
 
 
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001)

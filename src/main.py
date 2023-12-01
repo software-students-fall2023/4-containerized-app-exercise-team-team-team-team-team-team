@@ -1,6 +1,5 @@
 """Accesses the Hume Machine Learning API client and pulls the emotion from the image"""
 import os
-import json
 import chardet
 from dotenv import load_dotenv
 from hume import HumeStreamClient
@@ -29,6 +28,7 @@ encodingImage = detect_encoding(FILE_PATH_IMAGE)
 
 
 API_TOKEN = os.getenv("API_TOKEN")
+
 
 async def main():
     """Hume API CopyPasta"""
