@@ -27,10 +27,6 @@ def connect_to_db(connection_string):
     except ConnectionError as error:
         logging.error("Exception connecting to MongoDB: %s", error)
         raise
-        # print(f"Exception type: {type(e)}")
-        # # log.error(f"Unsuccessful login to client. Error code:{e}")
-        # print("made it here")
-        # raise
 
 
 log = logging.getLogger()
@@ -61,8 +57,6 @@ def data_collection_post():
         target_dir = os.path.join(
             script_dir, "..", "images"
         )  # navigating up 'images' folder
-        # os.makedirs(target_dir, exist_ok=True)
-        # -> creating directory if it doesn't exist, might be an issue on other machines
 
         # defining file name, it doesn't need to be unique if docker file clears image folder
         file_path = os.path.join(target_dir, "uploaded_image.png")
@@ -114,32 +108,6 @@ def get_emotion_aggregate():
             if emote is not None:
                 db_emotion_list[emote] = 1
     return db_emotion_list
-
-
-# @app.route("/data_output", methods=["GET"])
-# def return_emotion():
-#     """returns emotion to the output page"""
-
-#     # Run the main coroutine concurrently
-#     result = asyncio.run(main())
-
-#     emotion = result[0]
-#     emotion_dic = {"emotion": emotion}
-#     ml_lib, _ = connect_to_db(DATABASE_CONNECTION_STRING)
-#     ml_lib.insert_one(emotion_dic)
-#     # collect data from ml_lib
-#     db_emotion_list = {}
-#     for doc in ml_lib.find():
-#         emote = doc.get("emotion")
-#         if emote in db_emotion_list:
-#             db_emotion_list[emote] += 1
-#         else:
-#             if emote is not None:
-#                 db_emotion_list[emote] = 1
-
-#     return render_template(
-#         "data_output.html", emotion=emotion, emotions_data=db_emotion_list
-#     )
 
 
 if __name__ == "__main__":
