@@ -7,10 +7,13 @@
     <title>Home screen</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen+Mono">
-    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
+
+        h1{
+            font-family: 'Oxygen Mono', monospace;
+        }
         body {
             margin: 0;
             padding: 0;
@@ -20,6 +23,22 @@
             align-items: center;
             min-height: 100vh;
             color: black;
+        }
+
+        .button {
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 3px;
+            text-align: center;
+            cursor: pointer;
+            font-family: 'Oxygen Mono', monospace;
+            border: 0;
+            padding: 10px 20px;
+            position: relative;
+            margin: 10px auto;
+            width: auto;
+        }
+
+        .button:hover {
+            background-color: #ddd;
         }
 
         #emotionSpotify {
@@ -52,7 +71,7 @@
             <p class="mb-0" style="display: inline;">How are you feeling today?</p>
         </div>
         <div>
-            <button type="button" class="btn btn-secondary">About</button>
+            <button onclick="window.location.href = '/about.html';" type="button" class="btn btn-secondary">About</button>
         </div>
     </div>
 </nav>
@@ -80,8 +99,11 @@
 
 <script>
 
-
     document.addEventListener('DOMContentLoaded', (event) => {
+        function about(){
+            window.location.href = 'about.html';
+        }
+
         function reportDefintion(emotion){
             var definitionMap = {
         "Admiration": "A feeling of respect and approval.",

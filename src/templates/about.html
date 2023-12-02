@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home screen</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen+Mono">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        h1{
+            font-family: 'Oxygen Mono', monospace;
+            font-size: 25px;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: black;
+        }
+
+        .button {
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 3px;
+            text-align: center;
+            cursor: pointer;
+            font-family: 'Oxygen Mono', monospace;
+            border: 0;
+            padding: 10px 20px;
+            position: relative;
+            margin: 10px auto;
+            width: auto;
+        }
+
+        .button:hover {
+            background-color: #ddd;
+        }
+
+        #emotionSpotify {
+            z-index: 10;
+            padding: 20px;
+            bottom: 5%;
+            text-align: center;
+        }
+
+        .container {
+            margin: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #emotionPieChart {
+            max-width: 700px;
+            max-height: 500px;
+        }
+    </style>
+</head>
+
+<nav class="navbar fixed-top navbar-light bg-light">
+    <div class="container-fluid d-flex justify-content-between">
+        <div>
+            <h1 class="navbar-brand mb-0 h1">Ponyo Feels</h1>
+            <p class="mb-0" style="display: inline;">How are you feeling today?</p>
+        </div>
+        <div>
+            <button onclick="about()" type="button" class="btn btn-secondary">About</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container"> <!-- Adjust padding-top based on the height of your navbar -->
+
+    <h1 id="team-members">Team Members</h1>
+    <p><code>alexh212</code> - Alex Hmitti</p>
+    <p><code>as13909</code> - Aaron Stein</p>
+    <p><code>Rafinator123</code> - Rafael Nadal-Scala</p>
+    <p><code>jk021227</code> - Jhon Kim </p>
+    <h1 id="concept">Concept</h1>
+    <p>Ponyo Feels is an emotion recognition app that allows users to take a selfie and quickly have their facial expressions analyzed by a machine learning model. </p>
+    <p>Using <a href="https://hume.ai/products/facial-expression-model/">Hume AI&#39;s facial expression model</a>, this analysis identifies and reports the most prominent emotions displayed in a selfie. </p>
+    <p>In addition to recognizing emotions, Ponyo Feels currently suggests Spotify songs that match the identified emotion and has the capacity to expand media recommendations to include other content types reflecting the user&#39;s emotion. </p>
+    <p>These emotions are then stored in a database, allowing the app to provide users with insights into the most common emotions experienced by all its users.</p>
+    <h1 id="dependencies">Dependencies</h1>
+    <p>Ponyo Feels uses Hume APIs that require unique keys for access. 
+    If you do not have a personal Hume API key, create an account with <a href="https://www.hume.ai">Hume.AI</a>. 
+    Then, open the &#39;API Keys&#39; page from the vertical navigation bar on the left-hand side of the main page. Once directed to the &#39;API Keys&#39;, you will be able to reveal and copy your personal API Key.</p>
+    <p>Ponyo Feels relies on Docker for containerization - ensure Docker is installed on your machine. 
+    If not, download and install it <a href="https://www.docker.com/products/docker-desktop/">here</a>.</p>
+    <h1 id="installation">Installation</h1>
+    <p>To get started, clone the repository to your local machine and navigate to the project&#39;s directory. </p>
+    <p>Inside of <code>4-containerized-app-exercise-team-team-team-team-team-team/src/</code>, create a <code>config.json</code> file with the following contents:</p>
+    <pre><code>{
+        &quot;api_token&quot;: &quot;YOUR_API_TOKEN_HERE&quot;
+    }
+    </code></pre>
+    <p>Replace the text <code>YOUR_API_TOKEN_HERE</code> with your Hume API Key, and save. </p>
+    <p>Next navigate to the root directory <code>4-containerized-app-exercise-team-team-team-team-team-team/</code> and create a <code>.env</code> file with the following contents: </p>
+    <pre><code>`DATABASE_CONNECTION_STRING = &quot;mongodb+srv://jaar2023:me8rd2iS73YJLTfW@recipes01.ajqwb7q.mongodb.net/&quot;`
+    </code></pre>
+    <h1 id="usage">Usage</h1>
+    <p>Begin the application by running the following command: <code>docker-compose up --build</code></p>
+    <p>You&#39;ll see a series of1`` messages appearing, indicating the progress of the build process.</p>
+    <p>Once the build process is complete, you should see the following lines, indicating that the application is up and running:</p>
+    <pre><code class="language-bash">
+    ponyo-feels  |  * Serving Flask app &#39;web_app&#39;
+    ponyo-feels  |  * Debug mode: off
+    ponyo-feels  | INFO:werkzeug:WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+    ponyo-feels  |  * Running on all addresses (0.0.0.0)
+    ponyo-feels  |  * Running on http://127.0.0.1:5001
+    ponyo-feels  |  * Running on http://172.18.0.3:5001
+    ponyo-feels  | INFO:werkzeug:Press CTRL+C to quit
+    </code></pre>
+    <p>Open <code>http://127.0.0.1:5001</code> in your browser and click the button on the main page to reach the webcam interface. </p>
+    <p>Make sure to grant camera access to the website and then click the button to have your selfie analyzed.</p>
+    
+</div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        function about(){
+            window.location.href = 'about.html';
+        }
+
+        function reportDefintion(emotion){
+            var definitionMap = {
+        "Admiration": "A feeling of respect and approval.",
+        "Adoration": "Deep love and respect.",
+        "Aesthetic Appreciation": "A sense of beauty or appreciation of artistic expression.",
+        "Amusement": "The state of being entertained or finding something humorous.",
+        "Anger": "A strong feeling of annoyance, displeasure, or hostility.",
+        "Anxiety": "A feeling of worry, nervousness, or unease about something with an uncertain outcome.",
+        "Awe": "A feeling of reverential respect mixed with fear or wonder.",
+        "Awkwardness": "The state of being awkward or uncomfortable.",
+        "Boredom": "The state of feeling disinterested in one's surroundings, having nothing to do, or feeling that life is dull.",
+        "Calmness": "A state of peace and tranquility.",
+        "Concentration": "The action or power of focusing one's attention or mental effort.",
+        "Contemplation": "The action of looking thoughtfully at something for a long time or deep reflective thought.",
+        "Confusion": "A state of being bewildered or unclear in one’s mind about something.",
+        "Contempt": "The feeling that a person or a thing is beneath consideration, worthless, or deserving scorn.",
+        "Contentment": "A state of happiness and satisfaction.",
+        "Craving": "A powerful desire for something.",
+        "Determination": "Firmness of purpose; resoluteness.",
+        "Disappointment": "Sadness or displeasure caused by the non-fulfillment of one's hopes or expectations.",
+        "Disgust": "A feeling of revulsion or profound disapproval aroused by something unpleasant or offensive.",
+        "Distress": "Extreme anxiety, sorrow, or pain.",
+        "Doubt": "A feeling of uncertainty or lack of conviction.",
+        "Ecstasy": "An overwhelming feeling of great happiness or joyful excitement.",
+        "Embarrassment": "A feeling of self-consciousness, shame, or awkwardness.",
+        "Empathic Pain": "Feeling pain empathetically as a result of witnessing or imagining the suffering of another.",
+        "Entrancement": "The state of being completely fascinated or absorbed in something.",
+        "Envy": "A feeling of discontented or resentful longing aroused by someone else's possessions, qualities, or luck.",
+        "Excitement": "A feeling of great enthusiasm and eagerness.",
+        "Fear": "An unpleasant emotion caused by the belief that someone or something is dangerous, likely to cause pain, or a threat.",
+        "Guilt": "The fact of having committed a specified or implied offense or crime.",
+        "Horror": "An intense feeling of fear, shock, or disgust.",
+        "Interest": "The feeling of wanting to know or learn about something or someone.",
+        "Joy": "A feeling of great pleasure and happiness.",
+        "Love": "An intense feeling of deep affection.",
+        "Nostalgia": "A sentimental longing or wistful affection for the past, typically for a period or place with happy personal associations.",
+        "Pain": "Physical suffering or discomfort caused by illness or injury.",
+        "Pride": "A feeling of deep pleasure or satisfaction derived from one's own achievements, the achievements of those with whom one is closely associated, or from qualities or possessions that are widely admired.",
+        "Realization": "The act of becoming fully aware of something as a fact.",
+        "Relief": "A feeling of reassurance and relaxation following release from anxiety or distress.",
+        "Romance": "A feeling of excitement and mystery associated with love.",
+        "Sadness": "The condition or quality of being sad.",
+        "Satisfaction": "Fulfillment of one's wishes, expectations, or needs, or the pleasure derived from this.",
+        "Desire": "A strong feeling of wanting to have something or wishing for something to happen.",
+        "Shame": "A painful feeling of humiliation or distress caused by the consciousness of wrong or foolish behavior.",
+        "Surprise (negative)": "An unexpected or astonishing event, fact, etc., that is not pleasant.",
+        "Surprise (positive)": "An unexpected or astonishing event, fact, etc., that is pleasant.",
+        "Sympathy": "Feelings of pity and sorrow for someone else's misfortune.",
+        "Tiredness": "The state of wishing for rest or sleep.",
+        "Triumph": "A great victory or achievement."
+        };
+
+        return definitionMap[emotion];
+        
+        }
+
+        function changeIframeSrc(emotion) {
+            var urlMap = {
+                "Admiration": "https://open.spotify.com/embed/track/5zCJvrT3C7cIfHsR5iG95l?utm_source=generator",
+                "Adoration": "https://open.spotify.com/embed/track/4eHbdreAnSOrDDsFfc4Fpm?utm_source=generator",
+                "Aesthetic Appreciation": "https://open.spotify.com/embed/track/1VuBmEauSZywQVtqbxNqka?utm_source=generator",
+                "Amusement": "https://open.spotify.com/embed/track/6AQbmUe0Qwf5PZnt4HmTXv?utm_source=generator",
+                "Anger": "https://open.spotify.com/embed/track/1c8gk2PeTE04A1pIDH9YMk?utm_source=generator",
+                "Anxiety": "https://open.spotify.com/embed/track/0AjQvTAlYcWQ6JpJcUdsKw?utm_source=generator",
+                "Awe": "https://open.spotify.com/embed/track/3e0FzZjTXOUtiJGSClOBrI?utm_source=generator",
+                "Awkwardness": "https://open.spotify.com/embed/track/0wwPcA6wtMf6HUMpIRdeP7?utm_source=generator",
+                "Boredom": "https://open.spotify.com/embed/playlist/37i9dQZF1EIdO8LqmDczC3?utm_source=generator",
+                "Calmness": "https://open.spotify.com/embed/track/7pv80uUHfocFqfTytu1MVi?utm_source=generator",
+                "Concentration": "https://open.spotify.com/embed/track/2HHtWyy5CgaQbC7XSoOb0e?utm_source=generator",
+                "Contemplation": "https://open.spotify.com/embed/track/784VjdNkpXhFV0RHquzsi2?utm_source=generator",
+                "Confusion": "https://open.spotify.com/embed/track/6LgJvl0Xdtc73RJ1mmpotq?utm_source=generator",
+                "Contempt": "https://open.spotify.com/embed/track/564Z6w6IbtUnIO4QLg4y3P?utm_source=generator",
+                "Contentment": "https://open.spotify.com/embed/track/7vggqxNKwd6xdRoYS0pQtM?utm_source=generator",
+                "Craving": "https://open.spotify.com/embed/track/6BrMEbPSSj55nQhkgf6DnE?utm_source=generator",
+                "Determination": "https://open.spotify.com/embed/track/6D60klaHqbCl9ySc8VcRss?utm_source=generator",
+                "Disappointment": "https://open.spotify.com/embed/track/3oEkrIfXfSh9zGnE7eBzSV?utm_source=generator",
+                "Disgust": "https://open.spotify.com/embed/track/4ycLiPVzE5KamivXrAzGFG?utm_source=generator",
+                "Distress": "https://open.spotify.com/embed/track/1wyVyr8OhYsC9l0WgPPbh8?utm_source=generator",
+                "Doubt": "https://open.spotify.com/embed/track/6LgJvl0Xdtc73RJ1mmpotq?utm_source=generator",
+                "Ecstasy": "https://open.spotify.com/embed/track/4PEGwWH4tL6H7dGl4uVSPg?utm_source=generator",
+                "Embarrassment": "https://open.spotify.com/embed/track/70LcF31zb1H0PyJoS1Sx1r?utm_source=generator",
+                "Empathic Pain": "https://open.spotify.com/embed/track/5zCJvrT3C7cIfHsR5iG95l?utm_source=generator",
+                "Entrancement": "https://open.spotify.com/embed/track/2OUPZheGd8XbNQwBMImYnI?utm_source=generator",
+                "Envy": "https://open.spotify.com/embed/track/564Z6w6IbtUnIO4QLg4y3P?utm_source=generator",
+                "Excitement": "https://open.spotify.com/embed/track/6oBEmZu29JqnBDOWZOmm6O?utm_source=generator",
+                "Fear": "https://open.spotify.com/embed/track/2H2379xRxgQVvcOSoL8Ajr?utm_source=generator",
+                "Guilt": "https://open.spotify.com/embed/track/6ucR4KfvsBFWCMVFDvyKKl?utm_source=generator",
+                "Horror": "https://open.spotify.com/embed/track/7ERSQrRptZVM7q3VOdM7OL?utm_source=generator",
+                "Interest": "https://open.spotify.com/embed/track/7mebNFbb0ehL1IX1DMktdC?utm_source=generator",
+                "Joy": "https://open.spotify.com/embed/track/3koCCeSaVUyrRo3N2gHrd8?utm_source=generator",
+                "Love": "https://open.spotify.com/embed/track/7mimnm2QlSzW3J38FRMETP?utm_source=generator",
+                "Nostalgia": "https://open.spotify.com/embed/track/4wCmqSrbyCgxEXROQE6vtV?utm_source=generator",
+                "Pain": "https://open.spotify.com/embed/track/6PypGyiu0Y2lCDBN1XZEnP?utm_source=generator",
+                "Pride": "https://open.spotify.com/embed/track/6Slt6WiWnriaqCb8xXb2ZT?utm_source=generator",
+                "Realization": "https://open.spotify.com/embed/track/7mebNFbb0ehL1IX1DMktdC?utm_source=generator",
+                "Relief": "https://open.spotify.com/embed/track/1vYXt7VSjH9JIM5oRRo7vA?utm_source=generator",
+                "Romance": "https://open.spotify.com/embed/track/4PEGwWH4tL6H7dGl4uVSPg?utm_source=generator",
+                "Sadness": "https://open.spotify.com/embed/track/10nyNJ6zNy2YVYLrcwLccB?utm_source=generator",
+                "Satisfaction": "https://open.spotify.com/embed/track/213yG5o4EISfGoceayLo6u?utm_source=generator",
+                "Desire": "https://open.spotify.com/embed/track/2TmqHjg7uhizGndzXQdFuf?utm_source=generator",
+                "Shame": "https://open.spotify.com/embed/track/70LcF31zb1H0PyJoS1Sx1r?utm_source=generator",
+                "Surprise (negative)": "https://open.spotify.com/embed/track/2Fxmhks0bxGSBdJ92vM42m?utm_source=generator",
+                "Surprise (positive)": "https://open.spotify.com/embed/track/4bHsxqR3GMrXTxEPLuK5ue?utm_source=generator",
+                "Sympathy": "https://open.spotify.com/embed/track/2je7nCHSkWemSHgvLLIc32?utm_source=generator",
+                "Tiredness": "https://open.spotify.com/embed/track/1LzNfuep1bnAUR9skqdHCK?utm_source=generator",
+                "Triumph": "https://open.spotify.com/embed/track/6ATrsVaZT7XjkCynxM8cTS?utm_source=generator"
+            };
+
+            var iframe = document.getElementById('emotionSpotify');
+            iframe.src = urlMap[emotion];
+        }
+
+
+        const emotion = "{{ emotion }}";
+        changeIframeSrc(emotion);
+        const emotionsData = {{ emotions_data | tojson
+    }};
+    const ctx = document.getElementById('emotionPieChart').getContext('2d');
+    const emotionBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(emotionsData),
+            datasets: [{
+                label: 'Emotions',
+                data: Object.values(emotionsData),
+                backgroundColor: 'rgba(255, 165, 0, 0.2)',
+                borderColor: 'rgba(255, 165, 0, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    ticks: {
+                        font: {
+                            size: 15
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        font: {
+                            size: 15
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 15
+                        }
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Emotions Experienced by Our Users To Date',
+                    font: {
+                        size: 25
+
+                    },
+                    fontColor: 'black'
+                }
+            }
+        }
+    });
+        });
+</script>
+</body>
+
+</html>
