@@ -5,41 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home screen</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen+Mono">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxanium">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         h1 {
             font-family: 'Oxygen Mono', monospace;
-            margin-bottom: 5px;
-            text-align: center;
         }
 
-        p {
-            font-family: Helvetica, sans-serif;
-            margin-top: 5px;
-            text-align: center;
-        }
-
-     c
-
-        .header-container h1,
-        .header-container p {
+        body {
             margin: 0;
-            padding: 5px 0;
-        }
-
-        .container {
-            font-family: Arial, Helvetica, sans-serif;
-            text-align: center;
-            padding: 20px;
-            margin: 10px;
+            padding: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100%;
-            padding-top: 100px;
+            min-height: 100vh;
+            color: black;
+
         }
+
+        .container {
+            text-align: center;
+            margin: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
 
         .image-container {
             position: relative;
@@ -48,39 +42,13 @@
             max-width: 600px;
         }
 
-        .button {
-            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 3px;
-            text-align: center;
-            cursor: pointer;
-            font-family: 'Oxygen Mono', monospace;
-            border: 0;
-            padding: 10px 20px;
-            position: relative;
-            margin: 10px auto;
-            width: auto;
-        }
-
-        .button:hover {
-            background-color: #ddd;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #FFF9EF;
-        }
-
         img {
-            width: 350px;
+            width: 30px;
             height: auto;
-            display: block;
         }
 
-        #cameraStream {
+        #cameraStream,
+        #canvasElement {
             width: 100%;
             max-width: 600px;
             margin-bottom: 10px;
@@ -89,27 +57,46 @@
 </head>
 
 <body>
-    <div class="header-container">
-        <h1>Ponyo Feels</h1>
-        <p>How are you feeling today?</p>
-    </div>
+    <nav class="navbar fixed-top navbar-light bg-light">
+        <div class="container-fluid d-flex justify-content-between">
+            <div>
+                <a class="navbar-brand" href="#">
+                    <img  onclick="location.href = '/homepage';" style="cursor: pointer;"
+                        src="https://drive.google.com/uc?export=view&id=1P5juEAyj9PhLScA3obAptNXJCtSB5bLv" width="30"
+                        height="auto"> </a>
+                <h1 class="navbar-brand mb-0 h1">Ponyo Feels</h1>
+                <p class="mb-0" style="display: inline;">How are you feeling today?</p>
+            </div>
+            <div>
+                <button onclick="goBack()" type="button" class="btn btn-secondary">Back</button>
+                <button onclick="location.href = '/about';" ;" type="button" class="btn btn-secondary">About</button>
+            </div>
+        </div>
+    </nav>
 
     <div class="container">
         <div class="image-container">
             <video id="cameraStream" autoplay></video>
-            <canvas id="photoCanvas" style="display: none;"></canvas>
+            <canvas id="canvasElement" style="display: none;"></canvas>
         </div>
-        <button class="button" onclick="takePhoto()">Capture Emotion</button>
+        <button id="captureButton" type="button" onclick="takePhoto()" class="btn btn-primary" data-toggle="button"
+            aria-pressed="false" autocomplete="off" style="display: none;">
+            Capture
+        </button>
     </div>
     <script>
         const video = document.getElementById('cameraStream');
-        const canvas = document.getElementById('photoCanvas');
+        const canvas = document.getElementById('canvasElement');
+        const button = document.getElementById('captureButton');
         const context = canvas.getContext('2d');
+
+        
 
         if (navigator.mediaDevices.getUserMedia) { // accessing device camera & stream to video element
             navigator.mediaDevices.getUserMedia({ video: true })
                 .then(function (stream) {
                     video.srcObject = stream;
+                    button.style.display = "block";
                 })
                 .catch(function (error) {
                     console.log("Something went wrong with the webcam stream!");
@@ -120,7 +107,7 @@
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
+            video.pause();
             // converting image to a data URL
             var imageDataUrl = canvas.toDataURL('image/png');
 
@@ -139,6 +126,16 @@
                 })
                 .catch(error => console.error('Error:', error));
         }
+
+        function about() {
+            window.location.href = 'about.html';
+        }
+        function goBack() {
+            window.history.back();
+        }
+        function homepage() {
+        window.location.href = 'homepage.html';
+      }
     </script>
 
 </body>

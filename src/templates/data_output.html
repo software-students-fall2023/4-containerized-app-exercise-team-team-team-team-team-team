@@ -8,12 +8,11 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen+Mono">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <style>
-
-        h1{
+        h1 {
             font-family: 'Oxygen Mono', monospace;
         }
+
         body {
             margin: 0;
             padding: 0;
@@ -23,6 +22,7 @@
             align-items: center;
             min-height: 100vh;
             color: black;
+
         }
 
         .button {
@@ -61,103 +61,118 @@
             max-width: 700px;
             max-height: 500px;
         }
+        img{
+            width: 30px;
+            height: auto;
+        }
     </style>
 </head>
 
 <nav class="navbar fixed-top navbar-light bg-light">
     <div class="container-fluid d-flex justify-content-between">
         <div>
+            <a class="navbar-brand" href="#">
+                <img   onclick="location.href = '/homepage';" style="cursor: pointer;" src="https://drive.google.com/uc?export=view&id=1P5juEAyj9PhLScA3obAptNXJCtSB5bLv" width="30" height="auto">
+              </a>
             <h1 class="navbar-brand mb-0 h1">Ponyo Feels</h1>
             <p class="mb-0" style="display: inline;">How are you feeling today?</p>
         </div>
         <div>
-            <button onclick="window.location.href = '/about.html';" type="button" class="btn btn-secondary">About</button>
+            <button onclick="goBack()" type="button"
+                class="btn btn-secondary">Back</button>
+                <button onclick="location.href = '/about';"  ;" type="button"
+                class="btn btn-secondary">About</button>            </div>
         </div>
     </div>
 </nav>
 
-<!-- Page Content -->
-<div class="container"> <!-- Adjust padding-top based on the height of your navbar -->
-
-    <!-- Centered Text -->
+<di<div class="container">
     <div class="text-center my-4">
         <p>You seem to be feeling</p>
         <strong>{{emotion}}</strong>
     </div>
-    
-    <!-- Spotify Iframe -->
+
+    <p id="emotiondefinition"> Hello </p>
+
     <iframe id="emotionSpotify" style="border-radius:12px"
         src="https://open.spotify.com/embed/track/6LgJvl0Xdtc73RJ1mmpotq?utm_source=generator" width="100%" height="352"
         frameborder="0" allowfullscreen=""
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
-    <!-- Canvas for Pie Chart -->
     <canvas id="emotionPieChart" width="1240" height="1000"
         style="display: block; box-sizing: border-box; height: 500px; width: 620px;"></canvas>
+
 
 </div>
 
 <script>
+  
 
     document.addEventListener('DOMContentLoaded', (event) => {
         function about(){
             window.location.href = 'about.html';
         }
-
-        function reportDefintion(emotion){
+        function goBack() {
+        window.history.back();
+      }
+      function homepage() {
+        window.location.href = 'homepage.html';
+      }
+        function reportDefintion(emotion) {
             var definitionMap = {
-        "Admiration": "A feeling of respect and approval.",
-        "Adoration": "Deep love and respect.",
-        "Aesthetic Appreciation": "A sense of beauty or appreciation of artistic expression.",
-        "Amusement": "The state of being entertained or finding something humorous.",
-        "Anger": "A strong feeling of annoyance, displeasure, or hostility.",
-        "Anxiety": "A feeling of worry, nervousness, or unease about something with an uncertain outcome.",
-        "Awe": "A feeling of reverential respect mixed with fear or wonder.",
-        "Awkwardness": "The state of being awkward or uncomfortable.",
-        "Boredom": "The state of feeling disinterested in one's surroundings, having nothing to do, or feeling that life is dull.",
-        "Calmness": "A state of peace and tranquility.",
-        "Concentration": "The action or power of focusing one's attention or mental effort.",
-        "Contemplation": "The action of looking thoughtfully at something for a long time or deep reflective thought.",
-        "Confusion": "A state of being bewildered or unclear in one’s mind about something.",
-        "Contempt": "The feeling that a person or a thing is beneath consideration, worthless, or deserving scorn.",
-        "Contentment": "A state of happiness and satisfaction.",
-        "Craving": "A powerful desire for something.",
-        "Determination": "Firmness of purpose; resoluteness.",
-        "Disappointment": "Sadness or displeasure caused by the non-fulfillment of one's hopes or expectations.",
-        "Disgust": "A feeling of revulsion or profound disapproval aroused by something unpleasant or offensive.",
-        "Distress": "Extreme anxiety, sorrow, or pain.",
-        "Doubt": "A feeling of uncertainty or lack of conviction.",
-        "Ecstasy": "An overwhelming feeling of great happiness or joyful excitement.",
-        "Embarrassment": "A feeling of self-consciousness, shame, or awkwardness.",
-        "Empathic Pain": "Feeling pain empathetically as a result of witnessing or imagining the suffering of another.",
-        "Entrancement": "The state of being completely fascinated or absorbed in something.",
-        "Envy": "A feeling of discontented or resentful longing aroused by someone else's possessions, qualities, or luck.",
-        "Excitement": "A feeling of great enthusiasm and eagerness.",
-        "Fear": "An unpleasant emotion caused by the belief that someone or something is dangerous, likely to cause pain, or a threat.",
-        "Guilt": "The fact of having committed a specified or implied offense or crime.",
-        "Horror": "An intense feeling of fear, shock, or disgust.",
-        "Interest": "The feeling of wanting to know or learn about something or someone.",
-        "Joy": "A feeling of great pleasure and happiness.",
-        "Love": "An intense feeling of deep affection.",
-        "Nostalgia": "A sentimental longing or wistful affection for the past, typically for a period or place with happy personal associations.",
-        "Pain": "Physical suffering or discomfort caused by illness or injury.",
-        "Pride": "A feeling of deep pleasure or satisfaction derived from one's own achievements, the achievements of those with whom one is closely associated, or from qualities or possessions that are widely admired.",
-        "Realization": "The act of becoming fully aware of something as a fact.",
-        "Relief": "A feeling of reassurance and relaxation following release from anxiety or distress.",
-        "Romance": "A feeling of excitement and mystery associated with love.",
-        "Sadness": "The condition or quality of being sad.",
-        "Satisfaction": "Fulfillment of one's wishes, expectations, or needs, or the pleasure derived from this.",
-        "Desire": "A strong feeling of wanting to have something or wishing for something to happen.",
-        "Shame": "A painful feeling of humiliation or distress caused by the consciousness of wrong or foolish behavior.",
-        "Surprise (negative)": "An unexpected or astonishing event, fact, etc., that is not pleasant.",
-        "Surprise (positive)": "An unexpected or astonishing event, fact, etc., that is pleasant.",
-        "Sympathy": "Feelings of pity and sorrow for someone else's misfortune.",
-        "Tiredness": "The state of wishing for rest or sleep.",
-        "Triumph": "A great victory or achievement."
-        };
+                "Admiration": "Feeling of high regard and favorable opinion",
+                "Adoration": "Profound love coupled with deep respect",
+                "Aesthetic Appreciation": "Recognition and enjoyment of beauty or artistic expression",
+                "Amusement": "Being amused or finding something laughable",
+                "Anger": "Intense irritation, upset, or antagonism",
+                "Anxiety": "Worry or unease about something with an uncertain result",
+                "Awe": "Respectful fear and wonder combined with admiration",
+                "Awkwardness": "Feeling of unease or discomfort",
+                "Boredom": "Feeling uninterested and unengaged with one's environment or activities",
+                "Calmness": "Sense of serenity and quietness",
+                "Concentration": "Focus of mind and effort on a specific task or activity",
+                "Contemplation": "Deep and prolonged thought or observation",
+                "Confusion": "State of being puzzled or unclear",
+                "Contempt": "Disdain or scorn for something deemed unworthy",
+                "Contentment": "Feeling of joy and fulfillment",
+                "Craving": "Intense longing for something",
+                "Determination": "Resolve or steadfastness towards a goal",
+                "Disappointment": "Feeling of sadness due to unmet expectations",
+                "Disgust": "Strong aversion or repulsion to something offensive",
+                "Distress": "Severe anxiety, sorrow, or pain",
+                "Doubt": "Uncertainty or skepticism about something",
+                "Ecstasy": "Intense joy or rapturous excitement",
+                "Embarrassment": "Feeling of awkwardness or shame",
+                "Empathic Pain": "Pain felt in empathy with another's suffering",
+                "Entrancement": "Being captivated or completely engrossed in something",
+                "Envy": "Resentful longing for others' possessions, qualities, or fortunes",
+                "Excitement": "Eager enthusiasm and anticipation",
+                "Fear": "Feeling of alarm caused by perceived danger or threat",
+                "Guilt": "Awareness of having done something wrong or immoral",
+                "Horror": "Intense dread, shock, or repulsion",
+                "Interest": "Curiosity or desire to learn more about something or someone",
+                "Joy": "Intense happiness and delight",
+                "Love": "Profound emotional affection and attachment",
+                "Nostalgia": "Sentimental yearning for the past",
+                "Pain": "Physical suffering or discomfort",
+                "Pride": "Deep satisfaction from one's own or associated achievements",
+                "Realization": "Becoming fully aware of a fact",
+                "Relief": "Reassurance and calmness after anxiety or distress",
+                "Romance": "Excitement and mystery in love",
+                "Sadness": "State of feeling sorrowful or unhappy",
+                "Satisfaction": "Feeling of having one's expectations met or fulfilled",
+                "Desire": "Intense wish or longing for something",
+                "Shame": "Embarrassment or distress from one's own actions or qualities",
+                "Surprise (negative)": "Unpleasantly unexpected event or fact",
+                "Surprise (positive)": "Pleasantly unexpected event or fact",
+                "Sympathy": "Compassion for others' misfortunes",
+                "Tiredness": "Desire for rest or sleep",
+                "Triumph": "Significant success or achievement"
+            };
 
-        return definitionMap[emotion];
-        
+            var definitionElement = document.getElementById('emotiondefinition');
+            definitionElement.textContent = definitionMap[emotion];
+
         }
 
         function changeIframeSrc(emotion) {
@@ -219,6 +234,7 @@
 
         const emotion = "{{ emotion }}";
         changeIframeSrc(emotion);
+        reportDefintion(emotion);
         const emotionsData = {{ emotions_data | tojson
     }};
     const ctx = document.getElementById('emotionPieChart').getContext('2d');
