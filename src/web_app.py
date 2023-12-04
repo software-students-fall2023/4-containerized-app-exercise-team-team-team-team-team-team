@@ -88,21 +88,13 @@ def return_emotion():
 
 @app.route("/about", methods=["GET"])
 def view_about():
-<<<<<<< Updated upstream
-    """returns about page"""
-=======
     """View page."""
->>>>>>> Stashed changes
     return render_template("about.html")
 
 
 @app.route("/homepage", methods=["GET"])
 def view_homepage():
-<<<<<<< Updated upstream
-    """returns homepage"""
-=======
     """Homepage"""
->>>>>>> Stashed changes
     return render_template("homepage.html")
 
 

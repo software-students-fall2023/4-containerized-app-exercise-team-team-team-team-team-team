@@ -27,12 +27,13 @@ FILE_PATH_IMAGE = get_image()
 
 encodingImage = detect_encoding(FILE_PATH_IMAGE)
 
-
-FILE_PATH_API = os.path.join(script_dir, "config.json")
-encodingAPI = detect_encoding(FILE_PATH_API)
-with open(FILE_PATH_API, "r", encoding=encodingAPI) as f:
-    configs = json.load(f)
-    API_TOKEN = configs["api_token"]
+API_TOKEN = os.getenv("API_TOKEN")
+if not API_TOKEN:
+    FILE_PATH_API = os.path.join(script_dir, "config.json")
+    encodingAPI = detect_encoding(FILE_PATH_API)
+    with open(FILE_PATH_API, "r", encoding=encodingAPI) as f:
+        configs = json.load(f)
+        API_TOKEN = configs["api_token"]
 
 
 async def main():
