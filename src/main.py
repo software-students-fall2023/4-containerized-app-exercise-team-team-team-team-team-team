@@ -1,7 +1,7 @@
 """Accesses the Hume Machine Learning API client and pulls the emotion from the image"""
 import os
-import chardet
 import json
+import chardet
 from dotenv import load_dotenv
 from hume import HumeStreamClient
 from hume.models.config import FaceConfig

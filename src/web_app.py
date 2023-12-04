@@ -87,11 +87,13 @@ def return_emotion():
 
 @app.route("/about", methods=["GET"])
 def view_about():
+    """returns about page"""
     return render_template("about.html")
 
 
 @app.route("/homepage", methods=["GET"])
 def view_homepage():
+    """returns homepage"""
     return render_template("homepage.html")
 
 
