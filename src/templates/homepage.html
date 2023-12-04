@@ -6,10 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home screen</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen+Mono">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxanium">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        h1,
-        p {
+        .col-md-6 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
             font-family: 'Oxygen Mono', monospace;
         }
 
@@ -17,61 +22,19 @@
             margin-bottom: 5px;
         }
 
+
         p {
             margin-top: 5px;
         }
 
-        .header-container {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: #FFF9EF;
-            text-align: center;
-            padding: 10px 0;
-            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 3px;
-            z-index: 1000;
-        }
-
-        .header-container h1,
-        .header-container p {
-            margin: 0;
-            padding: 5px 0;
-        }
 
         .container {
             text-align: center;
-            padding: 20px;
-            margin: 10px;
+            margin: 100px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100%;
-        }
-
-        .image-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .button {
-            /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 3px; */
-            box-shadow: inset 0px 3px 3px rgba(0, 0, 0, 0.24);
-            text-align: center;
-            cursor: pointer;
-            font-family: 'Oxygen Mono', monospace;
-            background-color: white;
-            border-radius: 50px;
-            border: 0;
-            padding: 10px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .button:hover {
-            background-color: #ddd;
         }
 
         body {
@@ -81,13 +44,59 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #FFF9EF;
         }
 
-        img {
+        #largeimg {
             width: 350px;
             height: auto;
             display: block;
+        }
+
+        .marquee {
+            width: 450px;
+            margin: 0 auto;
+            white-space: nowrap;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .marquee span {
+            display: inline-block;
+            padding-left: 100%;
+            will-change: transform;
+            animation: marquee 90s linear infinite;
+        }
+
+        .marquee span:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(-100%, 0);
+            }
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(-100%, 0);
+            }
+        }
+
+        h2 {
+            font-family: 'Oxygen Mono', monospace;
+        }
+
+        #jumbop {
+            font-family: Arial, Helvetica, sans-serif
         }
     </style>
 </head>
@@ -95,18 +104,63 @@
 
 <body>
 
-    <div class="header-container">
-        <h1>Ponyo Feels</h1>
-        <p>How are you feeling today?</p>
+    <nav class="navbar fixed-top navbar-light bg-light">
+
+        <div class="container-fluid d-flex justify-content-between">
+            <div>
+                <a class="navbar-brand" href="#">
+                    <img  onclick="location.href = '/homepage';"style="cursor: pointer;"
+                        src="https://drive.google.com/uc?export=view&id=1P5juEAyj9PhLScA3obAptNXJCtSB5bLv" width="30"
+                        height="auto"> </a>
+                <h1 class="navbar-brand mb-0 h1">Ponyo Feels</h1>
+                <p class="mb-0" style="display: inline;">How are you feeling today?</p>
+            </div>
+            <div> <button onclick="goBack()" type="button" class="btn btn-secondary">Back</button>
+                <button onclick="location.href = '/about';" ;" type="button" class="btn btn-secondary">About</button>
+            </div>
+        </div>
+        </div>
+    </nav>
+
+
+
+
     </div>
-
-
-    <div class="container">
-        <div class="image-container">
-            <img src="https://drive.google.com/uc?export=view&id=1P5juEAyj9PhLScA3obAptNXJCtSB5bLv">
-            <button onclick="location.href = '/data_collection';" class="button">Read my facial expression</button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="jumbotron">
+                    <h2>
+                        Hello!
+                    </h2>
+                    <p>
+                        Take a selfie and let Ponyo read your mood. </p>
+                    <p> Ponyo Feels combines emotion recognition with music, offering Spotify song recommendations based
+                        on how you feel. </p>
+                    </p>
+                    <p>
+                        <button onclick="location.href = '/data_collection';" class="btn btn-secondary">Read my facial
+                            expression</button>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img id="largeimg" src="https://drive.google.com/uc?export=view&id=1P5juEAyj9PhLScA3obAptNXJCtSB5bLv">
+            </div>
         </div>
     </div>
 </body>
 
 </html>
+
+<script>    function about() {
+        window.location.href = 'about.html';
+    }
+    function goBack() {
+        window.history.back();
+    }
+    
+    function homepage() {
+        window.location.href = 'homepage.html';
+      }
+      </script>

@@ -85,6 +85,15 @@ def return_emotion():
         "data_output.html", emotion=emotion, emotions_data=db_emotion_list
     )
 
+@app.route("/about", methods=["GET"])
+def view_about():
+    return render_template("about.html")
+
+
+@app.route("/homepage", methods=["GET"])
+def view_homepage():
+    return render_template("homepage.html")
+
 
 def get_emotion():
     """Get the current emotion using the main function."""
