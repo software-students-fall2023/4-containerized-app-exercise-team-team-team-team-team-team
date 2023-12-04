@@ -85,6 +85,7 @@ def return_emotion():
         "data_output.html", emotion=emotion, emotions_data=db_emotion_list
     )
 
+
 @app.route("/about", methods=["GET"])
 def view_about():
     """returns about page"""
