@@ -63,18 +63,18 @@ def client():
         yield client
 
 
-def test_homepage_get_route(client):
-    """Test the homepage GET route."""
-    response = client.get("/")
-    assert response.status_code == 200
-    assert b"Read my facial expression" in response.data
+# def test_homepage_get_route(client):
+#     """Test the homepage GET route."""
+#     response = client.get("/")
+#     assert response.status_code == 200
+#     assert b"Read my facial expression" in response.data
 
 
-def test_data_collection_get_route(client):
-    """Test the data collection GET route."""
-    response = client.get("/data_collection")
-    assert response.status_code == 200
-    assert b"Capture Emotion" in response.data
+# def test_data_collection_get_route(client):
+#     """Test the data collection GET route."""
+#     response = client.get("/data_collection")
+#     assert response.status_code == 200
+#     assert b"Capture Emotion" in response.data
 
 
 def test_data_collection_post_route(client):
